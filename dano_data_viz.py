@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import seaborn as sns
 
 data = pd.read_excel('DANO_viz_data.xlsx')
-'''
+
 con = data[data['Segment'] == 'Consumer']['Profit'].sum()
 corp = data[data['Segment'] == 'Corporate']['Profit'].sum()
 home = data[data['Segment'] == 'Home Office']['Profit'].sum()
@@ -27,7 +27,7 @@ fig.gca().add_artist(centre_circle)
 plt.title('Profit from each segment of customers')
 plt.legend()
 plt.show()
-''''''
+
 category = data.Category.unique()
 profit = [data[data['Category'] == category[i]]['Profit'].sum() for i in range(len(category))]
 sales = [data[data['Category'] == category[i]]['Sales'].sum() for i in range(len(category))]
@@ -37,7 +37,7 @@ for i in range(len(category)):
     plt.text(i, profit[i], str(round((profit[i]/sales[i])*100, 2))+'% îò äîõîäà', ha = 'center', Bbox = dict(facecolor = '#FF7171', alpha =.8))
 plt.title('Profit from each category')
 plt.show()
-''''''
+
 regions = data.State.unique()
 profit = []
 for i in regions:
@@ -58,7 +58,7 @@ plt.xticks(rotation=60, fontsize = 'small', horizontalalignment = 'right')
 plt.legend(title = 'Top-5 the most profit/unprofit states')
 plt.grid(True)
 plt.show()
-''''''
+
 regions = data.State.unique()
 profit = []
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv')
@@ -71,8 +71,7 @@ df = pd.DataFrame(
 for i in regions:
     profit += [[i,data[data['State'] == i]['Profit'].sum()]]
 for i in range(len(profit)):
-    df['profit'][df['state'] == profit[i][0]] = profit[i][1]
-    
+    df['profit'][df['state'] == profit[i][0]] = profit[i][1]   
 #colorscale = ["rgb(230, 51, 51)", "rgb(255, 255, 150)", "rgb(94, 179, 39)", "rgb(67, 136, 33)", "rgb(33, 74, 12)"]
 #colorscale = ['rgb(120,0,120)', 'rgb(255,255,0)', 'rgb(255,100,0)', 'rgb(255,50,0)', 'rgb(255,0,0)']
 colorscale = ['#FC893F', '#FFFB94', '#E0CEED', '#C59DE2', '#9970B6']
@@ -88,7 +87,7 @@ fig.update_layout(
     geo_scope='usa', # limite map scope to USA
 )
 fig.show()
-'''
+
 sales = data['Sales'].sum()
 profit = data['Profit'].sum()
 explode = (0, 0.1)
@@ -102,7 +101,7 @@ plt.pie([sales-profit, profit],
 plt.title('Total: profit and wastes comparisons')
 plt.legend(loc = 'lower right')
 plt.show()
-'''
+
 print(data[data['Profit'] < 0].head(20))
 x = data['Profit']
 y = data['Discount']
@@ -112,7 +111,7 @@ z = np.polyfit (x, y, 1)
 p = np.poly1d (z)
 plt.plot (x, p(x), color = 'grey')
 plt.show()
-''''''
+
 subcategory = data['Sub-Category'].unique()
 profit = [data['Profit'][data['Sub-Category'] == i].sum() for i in subcategory]
 profit = [profit[i]/(data['Sales'][data['Sub-Category'] == subcategory[i]].sum()-profit[i]) for i in range(len(profit))]
@@ -122,4 +121,3 @@ for i in profit:
     plt.bar([i[0]], [i[1]], color = 'purple')
 plt.xticks(rotation=90)
 plt.show()
-'''
