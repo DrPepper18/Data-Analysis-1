@@ -8,7 +8,6 @@ import seaborn as sns
 
 data = pd.read_excel('DANO_viz_data.xlsx')
 '''
-#Процент прибыли с разных сегментов покупателей
 con = data[data['Segment'] == 'Consumer']['Profit'].sum()
 corp = data[data['Segment'] == 'Corporate']['Profit'].sum()
 home = data[data['Segment'] == 'Home Office']['Profit'].sum()
@@ -25,22 +24,20 @@ plt.pie(y,
 centre_circle = plt.Circle((0,0),0.60,fc='white')
 fig = plt.gcf()
 fig.gca().add_artist(centre_circle)
-plt.title('Процент прибыли от каждого сегмента покупателей')
+plt.title('Profit from each segment of customers')
 plt.legend()
 plt.show()
 ''''''
-#Прибыль с каждой категории товаров
 category = data.Category.unique()
 profit = [data[data['Category'] == category[i]]['Profit'].sum() for i in range(len(category))]
 sales = [data[data['Category'] == category[i]]['Sales'].sum() for i in range(len(category))]
 plt.style.use('ggplot')
 plt.bar(category, profit, color = '#9970B6')
 for i in range(len(category)):
-    plt.text(i, profit[i], str(round((profit[i]/sales[i])*100, 2))+'% от дохода', ha = 'center', Bbox = dict(facecolor = '#FF7171', alpha =.8))
-plt.title('Прибыль от каждой категории')
+    plt.text(i, profit[i], str(round((profit[i]/sales[i])*100, 2))+'% Г®ГІ Г¤Г®ГµГ®Г¤Г ', ha = 'center', Bbox = dict(facecolor = '#FF7171', alpha =.8))
+plt.title('Profit from each category')
 plt.show()
 ''''''
-#Прибыль с каждого штата
 regions = data.State.unique()
 profit = []
 for i in regions:
@@ -58,7 +55,7 @@ for i in profit:
 plt.style.use('ggplot')
 plt.bar(regions, profit, color = color)
 plt.xticks(rotation=60, fontsize = 'small', horizontalalignment = 'right')
-plt.legend(title = 'Топ-5 самых прибыльных/неприбыльных штатов')
+plt.legend(title = 'Top-5 the most profit/unprofit states')
 plt.grid(True)
 plt.show()
 ''''''
@@ -96,13 +93,13 @@ sales = data['Sales'].sum()
 profit = data['Profit'].sum()
 explode = (0, 0.1)
 plt.pie([sales-profit, profit], 
-        labels = ['Расходы', 'Прибыль'], 
+        labels = ['ГђГ Г±ГµГ®Г¤Г»', 'ГЏГ°ГЁГЎГ»Г«Гј'], 
         autopct = '%1.1f%%', 
         startangle = 75, 
         colors = ['#C8BFE7', '#FFC90E'],
         explode = explode,
         shadow = True)
-plt.title('Итог: отношение прибыли к расходам')
+plt.title('Total: profit and wastes comparisons')
 plt.legend(loc = 'lower right')
 plt.show()
 '''
